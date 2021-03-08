@@ -1,0 +1,21 @@
+{
+    "$schema": "http://json.schemastore.org/template",
+    //Template Information
+    "author": "Justin Grote",
+    "classifications": [
+        "Powershell Module",
+        "Sample"
+    ],
+    "name": "Powershell Simple Module",
+    "description": "A very simple powershell module consisting of just a single psm1 file",
+    "identity": "01-SimplePSModule.Powershell",
+    "groupIdentity": "Mortar",
+    "shortName": "simplepsmodule", // You can create the project using this short name instead of the one above.
+    "tags": {
+        "language": "PowerShell",
+        "type": "project"
+    },
+    //Basic Template Settings
+    "sourceName": "ModuleName", // Will replace the string 'MyProject.StarterWeb' with the value provided via -n.
+    "preferNameDirectory": false
+}

@@ -1,0 +1,41 @@
+{
+    "$schema": "http://json.schemastore.org/template",
+    //Template Information
+    "author": "Justin Grote",
+    "classifications": [
+        "Powershell Module",
+        "Sample"
+    ],
+    "name": "Powershell Simple Module w/ Manifest",
+    "description": "A simple powershell module with a single module file and a manifest file containing module information",
+    "identity": "02-SimplePSModuleWithManifest.Powershell",
+    "groupIdentity": "Mortar",
+    "shortName": "simplepsmodulemanifest", // You can create the project using this short name instead of the one above.
+    "tags": {
+        "language": "PowerShell",
+        "type": "project"
+    },
+    //Basic Template Settings
+    "sourceName": "ModuleName", // Will replace the string 'MyProject.StarterWeb' with the value provided via -n.
+    "preferNameDirectory": false,
+    //Template Substitutions
+    "guids": [
+        "DDDDDDDD-DDDD-DDDD-DDDD-DDDDDDDDDDDD"
+    ],
+    //Template Parameters
+    "symbols": {
+        "Author": {
+            "type": "parameter",
+            "datatype": "text",
+            "isRequired": true,
+            "description": "Who is the author of this module?"
+        },
+        "Company": {
+            "type": "parameter",
+            "datatype": "text",
+            "isRequired": false,
+            "description": "What is the name of the company that publishes this module?",
+            "defaultValue": "Unknown"
+        }
+    }
+}
