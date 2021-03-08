@@ -10,11 +10,19 @@ A templating engine for Powershell leveraging the dotnet templating engine, insp
 1. Adding extensive advanced templating functionality above and beyond what the dotnet templating engine offers. This is basically a transpiler to `template.json`. See `Pulumi` and `Bicep` for inspiration.
 
 ## Prototype Design
-1. There is a JSON schema for the templating engine (https://json.schemastore.org/template), use QuickType to generate C# classes to build the config.
-1. Wrap the quicktype generator with powershell functions that would be familiar to someone who has used new-modulemanifest.
-1. For template deployment, wrap `dotnet new` for project creation initially, move to using the assemblies next
+### Template development
+template.json has a JSON schema so tooling/autocomplete work in vscode natively, leverage this
+`New-MortarTemplate` for the template scaffolding (will be very limited customization but lots of comments)
+### Template Deployment
+`New-MortarProject` (and maybe `Invoke-Mortar`) to deploy new template. 
+wrap `dotnet new` for project creation initially, move to using the native assemblies later
+
+### Template Distribution
+PSGallery modules can implement a PSData option specifying the path to the modules to import
 
 ## Future
-1. DSL maybe?
+1. DSL maybe? Worth the effort over existing json tooling? Probably not
 1. Plaster "Shim" so that Mortar can maybe be used with the vscode plaster deployment. Alternatively, just make a new action for mortar templates using same flow as C# extension
 1. PSD1 to template.json transpiler, probably not worth it, most PS people are comfortable with json these days.
+1. There is a JSON schema for the templating engine (https://json.schemastore.org/template), use QuickType to generate C# classes to build/validate a config maybe?
+1. Wrap the quicktype generator with powershell functions that would be familiar to someone who has used new-modulemanifest.
