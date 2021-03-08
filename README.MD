@@ -1,5 +1,13 @@
 # Mortar
-A templating engine for Powershell leveraging the dotnet templating engine
+A templating engine for Powershell leveraging the dotnet templating engine, inspired by Plaster.
+
+## Goals
+1. Don't reinvent the wheel, templating has been done by dotnet and is mature, long term supported, and stable.
+1. Make interaction with the dotnet templating engine as comfortable for a casual Powershell user who has little to no .NET knowledge as possible.
+1. Friendly functions to consume templates in .nupkg format from the Powershell Gallery (and potentially nuget.org). Align with `PSGet 3.0` as much as possible for methodology.
+
+## Non-Goals
+1. Adding extensive advanced templating functionality above and beyond what the dotnet templating engine offers. This is basically a transpiler to `template.json`. See `Pulumi` and `Bicep` for inspiration.
 
 ## Prototype Design
 1. There is a JSON schema for the templating engine (https://json.schemastore.org/template), use QuickType to generate C# classes to build the config.
