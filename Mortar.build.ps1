@@ -1,12 +1,9 @@
 #requires -module PowershellBuild
-
-
 . PowerShellBuild.IB.Tasks
 $PSBPreference.Build.CompileModule = $true
-$PSBPreference.Build.Dependencies = 'StageFiles'
-$PSBPreference.Build.Exclude = 'Mortar.build.ps1','src/Mortar.psm1','templates'
-$PSBPreference.Build.CopyDirectores = 'templates'
-
+$PSBPreference.Build.Exclude = 'Mortar.build.ps1','src/Mortar.psm1'
+$PSBPreference.Build.CopyDirectories = '../templates'
+$PSBPreference.Build.CompileDirectories = $env:BHModulePath
 
 Task RemoveSourceInit StageFiles, {
     #BUG: Exclude doesn't seem to work with the PowershellBuild psm1 file
@@ -17,6 +14,6 @@ Task RemoveSourceInit StageFiles, {
     Out-File -InputObject $strippedModuleContent -FilePath $compiledModulePath -Force
 }
 
-Task Build StageFiles, RemoveSourceInit
+Task Build StageFiles,RemoveSourceInit
 
-Task . Build
+Task . Build,Test
