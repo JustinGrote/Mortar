@@ -1,5 +1,7 @@
 obj
 out
+BuildOutput
 Output
 testResults.xml
+TestExplorerResults.xml
 docs

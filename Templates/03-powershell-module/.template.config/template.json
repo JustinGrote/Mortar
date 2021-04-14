@@ -8,7 +8,7 @@
     ],
     "name": "Powershell Script Module",
     "description": "A standard powershell script module and related scaffolding",
-    "identity": "03-ScriptPSModule.Powershell",
+    "identity": "03-PSScriptModule",
     "groupIdentity": "Mortar",
     "shortName": "psmodulescript", // You can create the project using this short name instead of the one above.
     "tags": {
@@ -25,14 +25,14 @@
     ],
     //Template Parameters
     "symbols": {
-        "author": {
+        "Author": {
             "type": "parameter",
             "datatype": "text",
             "isRequired": true,
             "description": "Who is the author of this module?",
             "replaces": "PROJECT-AUTHOR"
         },
-        "company": {
+        "Company": {
             "type": "parameter",
             "datatype": "text",
             "isRequired": false,
