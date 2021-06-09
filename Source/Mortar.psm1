@@ -8,11 +8,11 @@ foreach ($ScriptPathItem in 'Private','Public') {
         Foreach-Object {
             if ($ScriptPathItem -eq 'Public') {$PublicFunctions += $PSItem.BaseName}
             . $PSItem
-        } 
+        }
 }
 Export-ModuleMember -Function $publicFunctions
 #endregion SourceInit
 
 
 #TODO: Replace with finder system
-$SCRIPT:templatePath = if (Test-Path "../Templates") {Resolve-Path "../Templates"} else {Resolve-Path 'Templates'}
+$SCRIPT:templatePath = if (Test-Path "$PSScriptRoot/../Templates") {Resolve-Path "$PSScriptRoot/../Templates"} else {Resolve-Path 'Templates'}

@@ -27,9 +27,13 @@ function New-Project {
             $templateToApply = Join-Path $templatePath $template
             #Install The Template
             $dotnetImportOutput = & dotnet new -i $templateToApply
+            #Strip Comments to convert to json
+            $templateContent = Get-Content -Raw "$templateToApply/.template.config/template.json"
+            $StripJsonCommentsRegex = '("(\\.|[^\\"])*")|/\*[\S\s]*?\*/|//.*'
+            $templateSettings = $templateContent -replace $StripJsonCommentsRegex,'$1' |
+                ConvertFrom-Json -WarningAction 'SilentlyContinue'
             #Fetch the module shortname
-            $templateName = (Get-Content $templateToApply/.template.config/template.json | 
-                ConvertFrom-Json -Depth 5 -WarningAction SilentlyContinue).Name
+            $templateName = $templateSettings.Name
 
             $dotnetResult = & dotnet new "$templateName" -o $Path -n $Name @Arguments
             if ($dotnetResult -ne "The template `"$templateName`" was created successfully.") {

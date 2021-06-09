@@ -9,8 +9,8 @@ on:
       - production
     tags:
       - '*'
-  release: 
-    types: 
+  release:
+    types:
       - published
   pull_request:
     branches:
@@ -68,9 +68,9 @@ jobs:
         id: build
         shell: pwsh
         run: |
-          if ('${{secrets.ACTIONS_STEP_DEBUG}}') {$verbosePreference = 'continue'}
-          Install-Module Press -AllowPrerelease -Force
-          ./build '.,Package'
+          $GLOBAL:ProgressPreference = 'SilentlyContinue'
+          if ('${{secrets.ACTIONS_STEP_DEBUG}}') {$GLOBAL:VerbosePreference = 'continue'}
+          ./build .,Package
 
       - name: 📦 Capture Powershell Module
         uses: actions/upload-artifact@v2
@@ -94,13 +94,13 @@ jobs:
       - if: always() && runner.os != 'Windows' && steps.debugStatus.outputs.runnerDebug
         name: 🐛 Debug via SSH if ACTIONS_RUNNER_DEBUG secret is set
         uses: lhotari/action-upterm@v1
-      
+
       #TODO: Move to dedicated function
       - name: 📦 Update Draft Github Release
         if: startsWith(github.ref, 'refs/tags/') || github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master' || github.ref == 'refs/heads/ci'
         shell: pwsh
         run: |
-          ./build 'Press.UpdateGitHubRelease'
+          ./build Press.UpdateGitHubRelease
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -115,7 +115,6 @@ jobs:
           - ubuntu-latest
           - ubuntu-20.04
           - ubuntu-18.04
-          - ubuntu-16.04
           - windows-latest
           - windows-2019
           - windows-2016
@@ -151,7 +150,7 @@ jobs:
           path: BuildOutput/${{ github.event.repository.name }}
 
       #TODO: Remove redundancy when https://github.com/actions/runner/issues/444 is implemented
-      - name: 🧪 Test Powershell 7+
+      - name: 🧪 Test
         shell: pwsh
         run: |
           if ('${{secrets.ACTIONS_STEP_DEBUG}}') {$verbosePreference = 'continue'}
@@ -159,22 +158,8 @@ jobs:
           if ('${{ github.event.repository.name }}' -eq 'Press') {
             $GLOBAL:PressModulePath = Resolve-Path ./BuildOutput/Press/Press.psd1
           }
-          Install-Module Press -AllowPrerelease -Force
 
-          . ./build.ps1 'Test'
-
-      #Meta: We don't test on 5.1 for using the module for Press
-      # - if: runner.os == 'Windows' && github.repository	!= 'JustinGrote/Press'
-      #   name: 🧪 Test Windows Powershell
-      #   shell: powershell
-      #   run: |
-      #     if ('${{secrets.ACTIONS_STEP_DEBUG}}') {$verbosePreference = 'continue'}
-      #     #Press Meta
-      #     if ('${{ github.event.repository.name }}' -eq 'Press') {
-      #       $GLOBAL:PressModulePath = Resolve-Path ./BuildOutput/Press/Press.psd1
-      #     }
-      #     Install-Module Press -AllowPrerelease -Force
-      #     . ./build.ps1 'Test'
+          . ./build.ps1 Test
 
   deployPrerelease:
     name: 🚀 Deploy Prelease Module
@@ -194,7 +179,12 @@ jobs:
       - name: 🚀 Publish Module to PowerShell Gallery
         shell: pwsh
         run: |
+          #TODO: Move to dedicated function
           if (-not '${{ secrets.PS_GALLERY_KEY }}') {throw 'You need to configure a PS_GALLERY_KEY secret for this environment with your Powershell Gallery API Key'}
+          $manifest = Import-PowershellDataFile -Path $PWD/BuildOutput/${{ github.event.repository.name }}/${{ github.event.repository.name }}.psd1
+          foreach ($requiredModule in $manifest.RequiredModules) {
+            Install-Module -Name $requiredModule.ModuleName -RequiredVersion $requiredModule.ModuleVersion -Force
+          }
           Publish-Module -Verbose -Name $PWD/BuildOutput/${{ github.event.repository.name }} -NugetApiKey ${{ secrets.PS_GALLERY_KEY }}
 
   deploy:
@@ -215,5 +205,10 @@ jobs:
       - name: 🚀 Publish Module to PowerShell Gallery
         shell: pwsh
         run: |
+          #TODO: Move to dedicated function
           if (-not '${{ secrets.PS_GALLERY_KEY }}') {throw 'You need to configure a PS_GALLERY_KEY secret for this environment with your Powershell Gallery API Key'}
+          $manifest = Import-PowershellDataFile -Path $PWD/BuildOutput/${{ github.event.repository.name }}/${{ github.event.repository.name }}.psd1
+          foreach ($requiredModule in $manifest.RequiredModules) {
+            Install-Module -Name $requiredModule.ModuleName -RequiredVersion $requiredModule.ModuleVersion -Force
+          }
           Publish-Module -Verbose -Name $PWD/BuildOutput/${{ github.event.repository.name }} -NugetApiKey ${{ secrets.PS_GALLERY_KEY }}

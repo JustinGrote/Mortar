@@ -4,7 +4,6 @@ Describe 'New-Project' {
         Import-Module $PSScriptRoot/../Mortar.psd1 -force
     }
 
-
     It 'Deploys the <Name> template' {
         $testModulePath = New-Item -Force -ItemType Directory TestDrive:/Templates/$Name
         New-MortarProject -Template $Name -Path $testModulePath -Arguments $Arguments
