@@ -14,11 +14,35 @@ A templating engine for Powershell leveraging the dotnet templating engine, insp
 template.json has a JSON schema so tooling/autocomplete work in vscode natively, leverage this
 `New-MortarTemplate` for the template scaffolding (will be very limited customization but lots of comments)
 ### Template Deployment
-`New-MortarProject` (and maybe `Invoke-Mortar`) to deploy new template. 
+`New-MortarProject` (and maybe `Invoke-Mortar`) to deploy new template.
 wrap `dotnet new` for project creation initially, move to using the native assemblies later
 
 ### Template Distribution
-PSGallery modules can implement a PSData option specifying the path to the modules to import
+If you have a template you want to distribute, perform the following steps:
+1. Create a template and store it somewhere in your module folder
+1. In the tags section of your modulemanifest, add the 'MortarTemplate' tag to your Tags property. This will enable the module to be found by Mortar's search engine
+1. In the PSData section, create a new hashtable called MortarTemplates. Each entry will have two keys: Name and Path.
+Name is the name of the template (you can have multiple). Path is the path to the template relative to the module root. For example:
+```
+PrivateData = @{
+    PSData = @{
+        MortarTemplates = @(
+            @{
+                Name = 'Simple Module'
+                Path = 'Templates/01-simple-module'
+            }
+            @{
+                Name = 'Simple Module with Manifest'
+                Path = 'Templates/02-simple-module-with-manifest'
+            }
+            @{
+                Name = 'Powershell Module'
+                Path = 'Templates/03-powershell-module'
+            }
+        }
+    }
+}
+```
 
 ## Future
 1. DSL maybe? Worth the effort over existing json tooling? Probably not
