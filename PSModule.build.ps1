@@ -1,5 +1,5 @@
 #requires -version 7
-Install-Module Press -RequiredVersion '0.3.0-beta0033' -AllowPrerelease
+Install-Module Press -RequiredVersion '0.3.0-beta0033' -AllowPrerelease -AllowClobber -Force
 Import-Module Press -RequiredVersion '0.3.0'
 . Press.Tasks
 
