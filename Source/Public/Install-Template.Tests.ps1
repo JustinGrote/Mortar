@@ -6,7 +6,7 @@ Describe ($MyInvocation.MyCommand.Name -replace '.Tests.ps1$') {
         $ErrorActionPreference = 'stop'
     }
 
-    It 'Adds the template' {
+    It 'Adds the <Name> template' {
         $PathToImport = Resolve-Path (Join-Path $TemplatesPath $Name)
         (Install-Template $PathToImport).Success
         | Should -BeTrue
