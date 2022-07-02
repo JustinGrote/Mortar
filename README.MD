@@ -14,7 +14,7 @@ A templating engine for Powershell leveraging the dotnet templating engine, insp
 template.json has a JSON schema so tooling/autocomplete work in vscode natively, leverage this
 `New-MortarTemplate` for the template scaffolding (will be very limited customization but lots of comments)
 ### Template Deployment
-`New-MortarProject` (and maybe `Invoke-Mortar`) to deploy new template. 
+`New-MortarProject` (and maybe `Invoke-Mortar`) to deploy new template.
 wrap `dotnet new` for project creation initially, move to using the native assemblies later
 
 ### Template Distribution
@@ -26,3 +26,7 @@ PSGallery modules can implement a PSData option specifying the path to the modul
 1. PSD1 to template.json transpiler, probably not worth it, most PS people are comfortable with json these days.
 1. There is a JSON schema for the templating engine (https://json.schemastore.org/template), use QuickType to generate C# classes to build/validate a config maybe?
 1. Wrap the quicktype generator with powershell functions that would be familiar to someone who has used new-modulemanifest.
+
+## Native Assembly Approach
+1. Use the bootstrapper class mentioned here: https://github.com/dotnet/templating/blob/main/docs/api/Inside-the-Template-Engine.md
+1. Add a provider that can search for the provided PSData (tag?) templates locally
