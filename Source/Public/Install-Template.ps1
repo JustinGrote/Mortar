@@ -4,7 +4,7 @@ using namespace Microsoft.TemplateEngine.Abstractions.Installer
 using namespace System.Threading
 
 function Install-Template {
-    [CmdletBinding()]
+    [CmdletBinding(SupportsShouldProcess)]
     param(
         [parameter(ValueFromPipeline)][String]$Path
     )
@@ -29,8 +29,11 @@ function Install-Template {
 
         [InstallRequest[]]$request = foreach ($fileItem in $templateFiles) {
             [string]$templatePath = [IO.Directory]::GetParent($fileItem).Parent #Get the root template folder quickly
+            Write-Verbose "Template Found at: $templatePath"
             [InstallRequest]::new($templatePath)
         }
+
+        if (-not $PSCmdlet.ShouldProcess($Path, "Install $($request.count) templates found")) { return }
 
         $result = $client.InstallTemplatePackagesAsync(
             $request,

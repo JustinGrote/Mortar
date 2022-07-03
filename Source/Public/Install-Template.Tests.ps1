@@ -33,6 +33,19 @@ Describe ($MyInvocation.MyCommand.Name -replace '.Tests.ps1$') {
         }
     )
 
+    It 'Installs multiple templates found in a directory' {
+        #Reset any past state
+        Import-ModuleWithoutPrefix $PSScriptRoot/../Mortar.psd1 -force
+
+        #Create a virtual client and dont use the global state
+        & (Get-Module Mortar) { Get-TemplateClient -Virtual }
+
+        $PathToImport = Resolve-Path $TemplatesPath
+
+        (Install-Template $PathToImport).Success
+        | Should -BeTrue
+    }
+
     It 'Shows error if template is attempted to be re-added' {
         #Reset any past state
         Import-ModuleWithoutPrefix $PSScriptRoot/../Mortar.psd1 -force
