@@ -22,10 +22,9 @@ function Install-Template {
         }
 
         if (-not $templateFiles) {
-            Write-Error "No templates found in $path. Templates must have a .templates.config/template.json file present"
+            Write-FunctionError "No templates found in $path. Templates must have a .templates.config/template.json file present"
             return
         }
-
 
         [InstallRequest[]]$request = foreach ($fileItem in $templateFiles) {
             [string]$templatePath = [IO.Directory]::GetParent($fileItem).Parent #Get the root template folder quickly
@@ -35,17 +34,19 @@ function Install-Template {
 
         if (-not $PSCmdlet.ShouldProcess($Path, "Install $($request.count) templates found")) { return }
 
-        $result = $client.InstallTemplatePackagesAsync(
+        $resultSet = $client.InstallTemplatePackagesAsync(
             $request,
             'Global',
             [CancellationToken]::None
         )
         | Receive-Task
 
-        if (-not $result.success) {
-            Write-Error ('{0} ({1}): {2}' -f $result.error, $result.InstallRequest, $result.ErrorMessage)
-            return
+        foreach ($result in $resultSet) {
+            if (-not $result.success) {
+                Write-FunctionError ('{0} ({1}): {2}' -f $result.error, $result.InstallRequest, $result.ErrorMessage)
+                continue
+            }
+            $result
         }
-        return $result
     }
 }

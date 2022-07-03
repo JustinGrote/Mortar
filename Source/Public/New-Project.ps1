@@ -45,7 +45,7 @@ function New-Project {
             | Receive-Task
 
             if ($result.Status -ne [CreationResultStatus]::Success) {
-                Write-Error ('There was an error deploying the {0} template to {1}: [{2}] {3}' -f $result.TemplateFullName, $result.OutputBaseDirectory, $result.Status, $result.ErrorMessage)
+                Write-FunctionError ('There was an error deploying the {0} template to {1}: [{2}] {3}' -f $result.TemplateFullName, $result.OutputBaseDirectory, $result.Status, $result.ErrorMessage)
                 return
             }
             $result
