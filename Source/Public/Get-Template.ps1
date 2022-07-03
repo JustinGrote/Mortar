@@ -5,7 +5,8 @@ function Get-Template {
         #TODO: $Filter
     )
     $client = Get-TemplateClient
-    #TODO: Use taskjob module
+    #TODO: Use filter expression to only get PowerShell templates
     $client.GetTemplatesAsync([CancellationToken]::None)
     | Receive-Task
+    | Where-Object { $_.tags.language.Choices.Keys.Contains('PowerShell') }
 }

@@ -10,6 +10,7 @@ if ($olderNugetDetected) {
     throw "An older version of Nuget was detected at $($type.assembly.Location). Please load this module before loading this assembly (which is commonly PSGet 3.0)"
 }
 Add-Type -Path $PSScriptRoot/../Output/*.dll
+Update-FormatData -PrependPath $PSScriptRoot/Types/*.format.ps1xml
 
 $publicFunctions = @()
 foreach ($ScriptPathItem in 'Private', 'Public') {
@@ -24,8 +25,6 @@ foreach ($ScriptPathItem in 'Private', 'Public') {
 }
 Export-ModuleMember -Function $publicFunctions
 #endregion SourceInit
-
-
 
 #TODO: Replace with finder system
 $SCRIPT:templatePath = if (Test-Path '../Templates') { Resolve-Path '../Templates' } else { Resolve-Path 'Templates' }
