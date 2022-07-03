@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-16"?>
+<Configuration>
+  <ViewDefinitions>
+<View>
+  <Name>Microsoft.TemplateEngine.Edge.Settings.TemplateInfo</Name>
+  <ViewSelectedBy>
+    <TypeName>Microsoft.TemplateEngine.Edge.Settings.TemplateInfo</TypeName>
+  </ViewSelectedBy>
+  <TableControl>
+    <TableHeaders>
+      <TableColumnHeader>
+      </TableColumnHeader>
+      <TableColumnHeader>
+      </TableColumnHeader>
+      <TableColumnHeader>
+      </TableColumnHeader>
+    </TableHeaders>
+    <TableRowEntries>
+      <TableRowEntry>
+        <TableColumnItems>
+          <TableColumnItem>
+            <PropertyName>Name</PropertyName>
+          </TableColumnItem>
+          <TableColumnItem>
+            <PropertyName>Shortname</PropertyName>
+          </TableColumnItem>
+          <TableColumnItem>
+            <PropertyName>Author</PropertyName>
+          </TableColumnItem>
+        </TableColumnItems>
+      </TableRowEntry>
+    </TableRowEntries>
+  </TableControl>
+</View>
+  </ViewDefinitions>
+</Configuration>
