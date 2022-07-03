@@ -31,3 +31,11 @@ function SCRIPT:Import-ModuleWithoutPrefix {
     Write-Verbose "Importing module $path without prefix from $tempPath"
     Import-Module $tempPath -Force:$Force
 }
+
+function Test-WithVirtualClient {
+    & (Get-Module Mortar) {
+        if ($SCRIPT:TemplateClient) { $SCRIPT:TemplateClient.dispose() }
+        $SCRIPT:TemplateClient = $null
+        Get-TemplateClient -Virtual | Out-Null
+    }
+}

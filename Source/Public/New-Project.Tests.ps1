@@ -3,8 +3,7 @@ Describe ($MyInvocation.MyCommand.Name -replace '.Tests.ps1$') {
         . $PSScriptRoot/../Tests/Shared.ps1
         Import-ModuleWithoutPrefix $PSScriptRoot/../Mortar.psd1 -force
 
-        #Create a virtual client and dont use the global state
-        & (Get-Module Mortar) { Get-TemplateClient -Virtual }
+        Test-WithVirtualClient
 
         $TemplatesPath = "$PSScriptRoot/../../Templates"
         $ErrorActionPreference = 'stop'
