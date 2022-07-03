@@ -22,7 +22,7 @@ function Install-Template {
         }
 
         if (-not $templateFiles) {
-            Write-FunctionError "No templates found in $path. Templates must have a .templates.config/template.json file present"
+            $path | Write-FunctionError "No templates found in $path. Templates must have a .templates.config/template.json file present"
             return
         }
 
@@ -43,7 +43,7 @@ function Install-Template {
 
         foreach ($result in $resultSet) {
             if (-not $result.success) {
-                Write-FunctionError ('{0} ({1}): {2}' -f $result.error, $result.InstallRequest, $result.ErrorMessage)
+                $result | Write-FunctionError ('{0} ({1}): {2}' -f $result.error, $result.InstallRequest, $result.ErrorMessage)
                 continue
             }
             $result
