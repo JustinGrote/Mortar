@@ -13,7 +13,7 @@ Add-Type -Path $PSScriptRoot/../Output/*.dll
 Update-FormatData -PrependPath $PSScriptRoot/Types/*.format.ps1xml
 
 $publicFunctions = @()
-foreach ($ScriptPathItem in 'Private', 'Public') {
+foreach ($ScriptPathItem in 'Classes', 'Private', 'Public') {
     $ScriptSearchFilter = [io.path]::Combine($PSScriptRoot, $ScriptPathItem, '*.ps1')
     $ScriptExcludeFilter = { $PSItem -notlike '*.tests.ps1' -and $PSItem -notlike '*.build.ps1' }
     Get-ChildItem $ScriptSearchFilter |
@@ -25,6 +25,3 @@ foreach ($ScriptPathItem in 'Private', 'Public') {
 }
 Export-ModuleMember -Function $publicFunctions
 #endregion SourceInit
-
-#TODO: Replace with finder system
-$SCRIPT:templatePath = if (Test-Path '../Templates') { Resolve-Path '../Templates' } else { Resolve-Path 'Templates' }

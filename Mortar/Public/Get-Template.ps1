@@ -1,4 +1,5 @@
 using namespace System.Threading
+using namespace System.Collections.Generic
 function Get-Template {
     param(
         #TODO: $Name (which converts to $filter)

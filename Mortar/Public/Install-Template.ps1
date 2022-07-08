@@ -6,7 +6,10 @@ using namespace System.Threading
 function Install-Template {
     [CmdletBinding(SupportsShouldProcess)]
     param(
-        [parameter(ValueFromPipeline)][String]$Path
+        #A path to where one or more templates are stored. This will search for proper template.json files within the directory to import.
+        [parameter(ValueFromPipeline)][String]$Path,
+        #Optionally specify a version for the template import
+        [Version]$Version
     )
     begin {
         [Bootstrapper]$client = Get-TemplateClient
@@ -29,7 +32,7 @@ function Install-Template {
         [InstallRequest[]]$request = foreach ($fileItem in $templateFiles) {
             [string]$templatePath = [IO.Directory]::GetParent($fileItem).Parent #Get the root template folder quickly
             Write-Verbose "Template Found at: $templatePath"
-            [InstallRequest]::new($templatePath)
+            [InstallRequest]::new($templatePath, $Version)
         }
 
         if (-not $PSCmdlet.ShouldProcess($Path, "Install $($request.count) templates found")) { return }

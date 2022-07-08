@@ -4,7 +4,6 @@
     <OutputType>Library</OutputType>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
     <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
   </PropertyGroup>
   <ItemGroup>
@@ -19,6 +18,7 @@
   <ItemGroup>
     <!-- These DLLs ship in PS7. You may need to add more to the list depending on your app's dependencies -->
     <PackageReference Include="System.Management.Automation" Version="7.2.5" PrivateAssets="all" />
+
     <!-- This one is weird, SMA lists 13.0.1 but it keeps getting output anyways, so we use exclude rather than private -->
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" ExcludeAssets="all" />
     <!-- ExcludeAssets is used because these include runtimes we dont want to ship -->
