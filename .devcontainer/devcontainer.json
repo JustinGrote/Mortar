@@ -1,0 +1,90 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.238.1/containers/dotnet
+{
+	"name": "PowerShell Development",
+	"postCreateCommand": "pwsh -f .devcontainer/Scripts/OnCreate.ps1",
+	"updateContentCommand": "dotnet tool restore && dotnet restore",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"args": {
+			// Update 'VARIANT' to pick a .NET Core version: 3.1, 6.0
+			// Append -bullseye (Debian) or -focal (Ubuntu) to pin to an OS version.
+			"VARIANT": "6.0-bullseye-slim",
+			// We dont need node for ps development
+			"NODE_VERSION": "none"
+		}
+	},
+	"features": {
+		"powershell": "latest"
+	},
+	// Configure tool-specific properties.
+	"customizations": {
+		// Configure properties specific to VS Code.
+		"vscode": {
+			// Add the IDs of extensions you want installed when the container is created.
+			"extensions": [
+				"ms-dotnettools.csharp",
+				"ms-vscode.PowerShell-Preview",
+				"vscode-icons-team.vscode-icons",
+				"josefpihrt-vscode.roslynator"
+			],
+			"settings": {
+				// This causes issues with codespaces
+				"debug.javascript.autoAttachFilter": "disabled",
+				"terminal.integrated.defaultProfile.linux": "pwsh",
+				"editor.rulers": [
+					80,
+					120
+				],
+				"files.trimTrailingWhitespace": true,
+				"[csharp]": {
+					"editor.defaultFormatter": "josefpihrt-vscode.roslynator",
+					"editor.formatOnType": true,
+					"editor.formatOnSaveMode": "modificationsIfAvailable",
+					"editor.formatOnSave": true
+				},
+				"omnisharp.enableImportCompletion": true,
+				"omnisharp.enableRoslynAnalyzers": true,
+				"omnisharp.enableAsyncCompletion": true,
+				"omnisharp.enableEditorConfigSupport": true,
+				"omnisharp.organizeImportsOnFormat": true,
+				"omnisharp.useEditorFormattingSettings": true,
+				"omnisharp.useModernNet": true,
+				"csharp.format.enable": true,
+				"csharp.semanticHighlighting.enabled": true,
+				"csharp.suppressDotnetRestoreNotification": true,
+				"[powershell]": {
+					"editor.formatOnType": true,
+					"editor.formatOnSaveMode": "modificationsIfAvailable",
+					"editor.formatOnSave": true,
+					"editor.semanticHighlighting.enabled": true,
+					"editor.wordBasedSuggestions": false,
+					"editor.language.brackets": [
+						[
+							"{",
+							"}"
+						],
+						[
+							"(",
+							")"
+						],
+						[
+							"#region",
+							"#endregion"
+						]
+					],
+					"editor.defaultFormatter": "ms-vscode.powershell-preview",
+					"editor.wordSeparators": "`~!@#%^&*()-=+[{]}\\|;:'\",.<>/?"
+				}
+			}
+		}
+	},
+	// Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+	"remoteUser": "vscode",
+	"remoteEnv": {
+		// Add dotnet global tools and local binaries to the path
+		"PATH": "/home/vscode/bin:/home/vscode/.dotnet/tools:${containerEnv:PATH}",
+		// Specify your oh-my-posh theme name: https://ohmyposh.dev/docs/themes Example: bubbles, spaceship, star
+		"OHMYPOSH_THEME": ""
+	}
+}

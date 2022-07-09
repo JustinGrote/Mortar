@@ -128,12 +128,12 @@ public class PowerShellModuleTemplatePackageProviderFactory : ITemplatePackagePr
 {
     public Guid Id { get; } = new("fdd52a92-307a-4a93-ad0c-23107f40add1");
     public string DisplayName { get; } = "Mortar - PowerShell Module Templates";
-    public List<PowerShellModuleTemplatePackageProvider> providers { get; } = new();
+    public List<PowerShellModuleTemplatePackageProvider> Providers { get; } = new();
 
     public ITemplatePackageProvider CreateProvider(IEngineEnvironmentSettings settings)
     {
         PowerShellModuleTemplatePackageProvider provider = new(this);
-        providers.Add(provider);
+        Providers.Add(provider);
         return provider;
     }
 }
