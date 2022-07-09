@@ -2,7 +2,8 @@
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.238.1/containers/dotnet
 {
 	"name": "PowerShell Development",
-	"postCreateCommand": "pwsh -f .devcontainer/Scripts/OnCreate.ps1",
+	// This is done in the DockerFile for now due to codespaces limitation
+	// "postCreateCommand": "pwsh -f .devcontainer/Scripts/OnCreate.ps1",
 	"updateContentCommand": "dotnet tool restore && dotnet restore",
 	"build": {
 		"dockerfile": "Dockerfile",
@@ -10,7 +11,7 @@
 			// Update 'VARIANT' to pick a .NET Core version: 3.1, 6.0
 			// Append -bullseye (Debian) or -focal (Ubuntu) to pin to an OS version.
 			"VARIANT": "6.0-bullseye-slim",
-			// We dont need node for ps development
+			// We dont need node for PowerShell development
 			"NODE_VERSION": "none"
 		}
 	},
@@ -30,12 +31,16 @@
 			],
 			"settings": {
 				// This causes issues with codespaces
+				"workbench.iconTheme": "vscode-icons",
 				"debug.javascript.autoAttachFilter": "disabled",
 				"terminal.integrated.defaultProfile.linux": "pwsh",
 				"editor.rulers": [
 					80,
 					120
 				],
+				"git.branchPrefix": "feature/",
+				"git.branchProtection": ["main"],
+				"git.postCommitCommand": "sync",
 				"files.trimTrailingWhitespace": true,
 				"[csharp]": {
 					"editor.defaultFormatter": "josefpihrt-vscode.roslynator",

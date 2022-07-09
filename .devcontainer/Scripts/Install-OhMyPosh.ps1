@@ -1,9 +1,10 @@
 param(
-  $theme = $ENV:OHMYPOSH_THEME ?? 'spaceship',
+  $theme = $ENV:OHMYPOSH_THEME,
   $binPath = "$HOME/bin",
   $themePath = "$HOME/.config/oh-my-posh/themes",
   $pwshProfilePath = $profile.CurrentUserAllHosts
 )
+if (-not $theme) { $theme = 'spaceship' }
 Start-Transcript $HOME/devcontainer-oncreate.log
 trap {
   Stop-Transcript

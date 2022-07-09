@@ -13,5 +13,8 @@ ARG PROMPT_THEME="spaceship"
 # RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 #     && apt-get -y install --no-install-recommends <your-package-list-here>
 
-#We are adding pwsh as a devcontainer feature, so we want to remove visibility to the local installed version
-# RUN rm /usr/local/bin/pwsh
+#We do this here instead of using devcontainer.json due to codespaces not supporting WaitFor yet: https://github.com/github-community/community/discussions/9644
+SHELL ["/usr/bin/pwsh", "-noprofile", "-command"]
+USER vscode
+COPY Scripts/Install-OhMyPosh.ps1 /tmp
+RUN /tmp/Install-OhMyPosh.ps1
