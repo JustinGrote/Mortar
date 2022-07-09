@@ -7,7 +7,7 @@ FROM mcr.microsoft.com/vscode/devcontainers/dotnet:0-${VARIANT}
 # [Choice] Node.js version: none, lts/*, 18, 16, 14
 ARG NODE_VERSION="none"
 # [Choice] Prompt Theme: https://ohmyposh.dev/docs/themes
-ARG PROMPT_THEME="spaceship"
+ARG OMP_THEME="spaceship"
 
 # [Optional] Uncomment this section to install additional OS packages.
 # RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
@@ -17,4 +17,4 @@ ARG PROMPT_THEME="spaceship"
 SHELL ["/usr/bin/pwsh", "-noprofile", "-command"]
 USER vscode
 COPY Scripts/Install-OhMyPosh.ps1 /tmp
-RUN /tmp/Install-OhMyPosh.ps1
+RUN /tmp/Install-OhMyPosh.ps1 -Theme $env:OMP_THEME

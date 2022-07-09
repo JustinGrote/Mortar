@@ -12,7 +12,9 @@
 			// Append -bullseye (Debian) or -focal (Ubuntu) to pin to an OS version.
 			"VARIANT": "6.0-bullseye-slim",
 			// We dont need node for PowerShell development
-			"NODE_VERSION": "none"
+			"NODE_VERSION": "none",
+			//Select one of the built in OMP themes. https://ohmyposh.dev/docs/themes
+			"OMP_THEME": "spaceship"
 		}
 	},
 	"features": {
@@ -24,22 +26,43 @@
 		"vscode": {
 			// Add the IDs of extensions you want installed when the container is created.
 			"extensions": [
+				"justin-grote.powershell-extension-pack",
 				"ms-dotnettools.csharp",
-				"ms-vscode.PowerShell-Preview",
 				"vscode-icons-team.vscode-icons",
 				"josefpihrt-vscode.roslynator"
 			],
 			"settings": {
 				// This causes issues with codespaces
 				"workbench.iconTheme": "vscode-icons",
+        "extensions.ignoreRecommendations": true,
+        "powershell.pester.codeLens": false,
+				"editor.fontFamily": "Meslo LGM NF, Delugia Nerd Font, CaskaydiaCove NF, Consolas, 'Courier New', monospace",
 				"debug.javascript.autoAttachFilter": "disabled",
 				"terminal.integrated.defaultProfile.linux": "pwsh",
+        "gitlens.showWelcomeOnInstall": false,
+        "gitlens.showWhatsNewAfterUpgrades": false,
+				"terminal.integrated.profiles.linux": {
+					"pwsh": {
+						"path": "pwsh",
+						"args": ["-nologo"],
+						"icon": "terminal-powershell"
+					},
+					"bash": {
+						"path": "bash",
+						"icon": "terminal-bash"
+					},
+					"zsh": {
+						"path": "zsh"
+					}
+				},
 				"editor.rulers": [
 					80,
 					120
 				],
 				"git.branchPrefix": "feature/",
-				"git.branchProtection": ["main"],
+				"git.branchProtection": ["main","master"],
+				"git.enableSmartCommit": true,
+				"git.autofetch": true,
 				"git.postCommitCommand": "sync",
 				"files.trimTrailingWhitespace": true,
 				"[csharp]": {

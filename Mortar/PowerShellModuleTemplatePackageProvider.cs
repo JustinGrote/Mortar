@@ -20,8 +20,8 @@ public class PowerShellModuleTemplatePackageProvider : ITemplatePackageProvider
     {
         // Search for all PowerShell modules in the current directory
 
-        var PSModulePath = Environment.GetEnvironmentVariable("PSModulePath") ?? throw new InvalidOperationException("PSModulePath is not avaliable as an environment variable. This should never happen.");
-        var moduleSearchPaths = PSModulePath.Split(Path.PathSeparator);
+        var psModulePath = Environment.GetEnvironmentVariable("PSModulePath") ?? throw new InvalidOperationException("PSModulePath is not avaliable as an environment variable. This should never happen.");
+        var moduleSearchPaths = psModulePath.Split(Path.PathSeparator);
         HashSet<string> manifestPaths = new();
         foreach (var path in moduleSearchPaths)
         {
@@ -49,11 +49,11 @@ public class PowerShellModuleTemplatePackageProvider : ITemplatePackageProvider
         }
 
         // Get only templates that have the 'MortarTemplate' tag
-        IEnumerable<string> templateManifestPaths = manifestPaths.Where(p =>
+        var templateManifestPaths = manifestPaths.Where(p =>
         {
             // Adapted from Import-PowerShellDataFile implementation
             Ast ast = Parser.ParseFile(p, out _, out _);
-            Ast data = ast.Find(static a => a is HashtableAst, false);
+            var data = ast.Find(static a => a is HashtableAst, false);
 
             Hashtable? manifest;
             try
@@ -77,19 +77,19 @@ public class PowerShellModuleTemplatePackageProvider : ITemplatePackageProvider
                 return false;
             }
             // FIXME: Make this configurable
-            const string templateTag = "MortarTemplate";
+            const string TemplateTag = "MortarTemplate";
             return psData["Tags"] switch
             {
-                string tag => tag == templateTag,
-                string[] tags => tags.Contains(templateTag),
+                string tag => tag == TemplateTag,
+                string[] tags => tags.Contains(TemplateTag),
                 _ => false,
             };
         });
 
-        IEnumerable<DirectoryInfo> templateFolders = templateManifestPaths.SelectMany(
+        var templateFolders = templateManifestPaths.SelectMany(
             manifestPath =>
             {
-                DirectoryInfo manifestFolderPath = Directory.GetParent(manifestPath) ??
+                var manifestFolderPath = Directory.GetParent(manifestPath) ??
                     throw new InvalidOperationException("Could not get parent folder of manifest file. This should never happen.");
 
                 EnumerationOptions limitSearchDepth = new()
