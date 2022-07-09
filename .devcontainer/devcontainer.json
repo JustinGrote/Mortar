@@ -34,6 +34,15 @@
 			"settings": {
 				// This causes issues with codespaces
 				"workbench.iconTheme": "vscode-icons",
+        "workbench.colorTheme": "Default Dark+",
+        "editor.semanticTokenColorCustomizations": {
+          "[Default Dark+]": {
+            "enabled": true,
+            "rules": {
+              "punctuation.section.bracket.end.powershell": "#569CD6"
+            }
+          }
+        },
         "extensions.ignoreRecommendations": true,
         "powershell.pester.codeLens": false,
 				"editor.fontFamily": "Meslo LGM NF, Delugia Nerd Font, CaskaydiaCove NF, Consolas, 'Courier New', monospace",
@@ -68,11 +77,120 @@
 				"git.postCommitCommand": "sync",
 				"files.trimTrailingWhitespace": true,
 				"[csharp]": {
-					"editor.defaultFormatter": "josefpihrt-vscode.roslynator",
+          "editor.defaultFormatter": "ms-dotnettools.csharp",
 					"editor.formatOnType": true,
 					"editor.formatOnSaveMode": "modificationsIfAvailable",
 					"editor.formatOnSave": true
 				},
+        "indentRainbow.colors": [
+          "#569CD610",
+          "#C586C010",
+          "#4EC9B010",
+          "#CE917810"
+        ],
+        "workbench.colorCustomizations": {
+          "editorBracketHighlight.foreground1": "#569CD6",
+          "editorBracketHighlight.foreground2": "#C586C0",
+          "editorBracketHighlight.foreground3": "#4EC9B0",
+          "editorBracketHighlight.foreground4": "#CE9178",
+          "errorLens.errorBackground": "#e4545410",
+          "errorLens.errorForeground": "#ff646440",
+          "errorLens.errorMessageBackground": "#e4545405",
+          "errorLens.warningBackground": "#ff942f10",
+          "errorLens.warningForeground": "#fa973a70",
+          "errorLens.infoBackground": "#2472c810",
+          "errorLens.infoForeground": "#2472c8B0",
+          "testing.message.error.decorationForeground": "#ff646440",
+          "testing.message.error.lineBackground": "#e4545405",
+          "errorLens.warningMessageBackground": "#fff00005",
+          "tab.lastPinnedBorder": "#2472c8",
+          "terminal.ansiBlack": "#000000",
+          "terminal.ansiBlue": "#2472c8",
+          "terminal.ansiBrightBlack": "#666666",
+          "terminal.ansiBrightBlue": "#569cd6",
+          "terminal.ansiBrightCyan": "#9cdcfe",
+          "terminal.ansiBrightGreen": "#b5cea8",
+          "terminal.ansiBrightMagenta": "#daadd6",
+          "terminal.ansiBrightRed": "#f14c4c",
+          "terminal.ansiBrightWhite": "#e5e5e5",
+          "terminal.ansiBrightYellow": "#DCDCAA",
+          "terminal.ansiCyan": "#11a8cd",
+          "terminal.ansiGreen": "#6a9955",
+          "terminal.ansiMagenta": "#C586C0",
+          "terminal.ansiRed": "#cd3131",
+          "terminal.ansiWhite": "#e5e5e5",
+          "terminal.ansiYellow": "#CE9178",
+          "terminal.background": "#1E1E1E",
+          "terminal.foreground": "#D4D4D4",
+          "editor.lineHighlightBackground": "#1073cf2d",
+          "editor.lineHighlightBorder": "#9fced11f"
+        },
+        "vsicons.associations.files": [
+          {
+            "extensions": [
+              "arm.json",
+              "arm.jsonc"
+            ],
+            "format": "svg",
+            "icon": "azure"
+          },
+          {
+            "extensions": [
+              "parameters.json",
+              "parameters.jsonc"
+            ],
+            "format": "svg",
+            "icon": "config"
+          },
+          {
+            "extensions": [
+              "tests.ps1"
+            ],
+            "format": "svg",
+            "icon": "test"
+          },
+          {
+            "extensions": [
+              "clixml"
+            ],
+            "format": "svg",
+            "icon": "xml"
+          }
+        ],
+        "vsicons.associations.folders": [
+          {
+            "extends": "dist",
+            "extensions": [
+              "BuildOutput",
+              "Output"
+            ],
+            "format": "svg",
+            "icon": "dist"
+          },
+          {
+            "extends": "helper",
+            "extensions": [
+              "BuildHelpers"
+            ],
+            "format": "svg",
+            "icon": "helper"
+          },
+          {
+            "extensions": [
+              "Functions",
+              "FunctionApp"
+            ],
+            "format": "svg",
+            "icon": "azure"
+          },
+          {
+            "extensions": [
+              "Classes"
+            ],
+            "format": "svg",
+            "icon": "model"
+          }
+        ],
 				"omnisharp.enableImportCompletion": true,
 				"omnisharp.enableRoslynAnalyzers": true,
 				"omnisharp.enableAsyncCompletion": true,
@@ -82,11 +200,15 @@
 				"omnisharp.useModernNet": true,
 				"csharp.format.enable": true,
 				"csharp.semanticHighlighting.enabled": true,
-				"csharp.suppressDotnetRestoreNotification": true,
-				"[powershell]": {
-					"editor.formatOnType": true,
-					"editor.formatOnSaveMode": "modificationsIfAvailable",
-					"editor.formatOnSave": true,
+        "csharp.suppressDotnetRestoreNotification": true,
+        "editor.snippetSuggestions": "bottom",
+        "editor.suggest.localityBonus": true,
+        "editor.suggestSelection": "recentlyUsedByPrefix",
+        "editor.formatOnSaveMode": "modificationsIfAvailable",
+        "editor.formatOnSave": true,
+        "editor.formatOnType": false,
+        "editor.formatOnPaste": false,
+        "[powershell]": {
 					"editor.semanticHighlighting.enabled": true,
 					"editor.wordBasedSuggestions": false,
 					"editor.language.brackets": [
@@ -102,8 +224,7 @@
 							"#region",
 							"#endregion"
 						]
-					],
-					"editor.defaultFormatter": "ms-vscode.powershell-preview",
+          ],
 					"editor.wordSeparators": "`~!@#%^&*()-=+[{]}\\|;:'\",.<>/?"
 				}
 			}
