@@ -56,11 +56,13 @@
 					}
 				},
 				"editor.rulers": [
-					80,
 					120
 				],
 				"git.branchPrefix": "feature/",
 				"git.branchProtection": ["main","master"],
+        "git.confirmSync": false,
+        // Feel free to override this in your user settings, this is here to keep you from shooting yourself in the foot.
+        "git.allowForcePush": false,
 				"git.enableSmartCommit": true,
 				"git.autofetch": true,
 				"git.postCommitCommand": "sync",
