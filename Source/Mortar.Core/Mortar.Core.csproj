@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" Sdk="Microsoft.NET.Sdk">
+  <Target Name="Default"/>
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+    <Nullable>enable</Nullable>
+    <LangVersion>12</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup Label="PowerShell">
+    <!-- These DLLs ship in PS7. You may need to add more to the list depending on your app's dependencies -->
+    <PackageReference Include="System.Management.Automation" Version="7.2.0" PrivateAssets="all" />
+
+    <!-- ExcludeAssets is used because these include runtimes we dont want to ship and we are safe to use the builtin one -->
+    <PackageReference Include="System.Security.Cryptography.Pkcs" Version="6.0.4" ExcludeAssets="all" />
+    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="6.0.0" ExcludeAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup Label="Dependencies">
+    <PackageReference Include="Microsoft.TemplateEngine.IDE" Version="8.0.100" />
+  </ItemGroup>
+</Project>
